@@ -52,7 +52,8 @@ def q6
   numbers1 = [1, 2, 3, 4, 5]
 
   # 以下に回答を記載
-  p numbers1.map {|n|n * 10 }
+  number2 = numbers1.map {|n|n * 10 }
+  p number2
 
 end
 
@@ -61,6 +62,8 @@ def q7
 
   # 以下に回答を記載
   array.map!(&:to_i)
+  # または以下
+  # array.map!{ |n| n.to_i}
   # 以下は変更しないで下さい
   p array
 end
@@ -123,7 +126,7 @@ def q13
   update_data = { age: 32, address: "沖縄" }
 
   # 以下に回答を記載
-  puts user_data.merge!(update_data)
+  puts user_data.merge(update_data)
 end
 
 def q14
@@ -227,15 +230,36 @@ end
 
 class UserQ20
   # 以下に回答を記載
+  attr_reader :name, :age
 
+  def initialize(**params)
+    @name = params[:name]
+    @age = params[:age]
+  end
 end
 
 class Zoo
   # 以下に回答を記載
+  def initialize(**params)
+    @infant = params[:entry_fee][:infant]
+    @children = params[:entry_fee][:children]
+    @adult = params[:entry_fee][:adult]
+    @senior = params[:entry_fee][:senior]
+  end
 
-end
-
-
+  def info_entry_fee(user)
+    case user.age
+    when 1..5
+      puts "#{user.name}さんの入場料は#{@infant}円です。"
+    when 6..12
+      puts "#{user.name}さんの入場料は#{@children}円です。"
+    when 13..64
+      puts "#{user.name}さんの入場料は#{@adult}円です。"
+    when 65..120
+      puts "#{user.name}さんの入場料は#{@senior}円です。"
+    end
+   end
+  end
 def q20
   # ここは変更しないで下さい（動物園・ユーザー情報は変更していただいてOKです）
   zoo = Zoo.new(name: "旭山動物園", entry_fee: { infant: 0, children: 400, adult: 800, senior: 500 })
